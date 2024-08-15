@@ -10,13 +10,11 @@
     <button onclick="makePay()">Оплатить</button>
 
     <script>
-      // Функция для получения значения параметра из URL
       function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
       }
 
-      // Получаем сумму из URL и вставляем в <p>
       const amount = getQueryParam("amount");
       document.getElementById(
         "amount"
@@ -25,14 +23,13 @@
       function makePay() {
         document.getElementById("amount").textContent =
           "оплата успешно выполнена";
+
         if (window.opener) {
-        // Отправляем сообщение на первую страницу с информацией о сумме
-        window.opener.postMessage({ amount: amount }, 'https://mamyruly.github.io');
-        
-        // Закрываем окно после отправки сообщения
-    } else {
-        alert('Оплата успешно произведена, но не удалось отправить данные на первую страницу.');
-    }
+          window.opener.postMessage({ amount: amount }, 'https://mamyruly.github.io');
+          window.close();
+        } else {
+          alert('Оплата успешно произведена, но не удалось отправить данные на первую страницу.');
+        }
       }
     </script>
   </body>
