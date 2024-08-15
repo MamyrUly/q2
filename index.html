@@ -25,10 +25,14 @@
       function makePay() {
         document.getElementById("amount").textContent =
           "оплата успешно выполнена";
-        window.opener.postMessage(
-          { amount: amount },
-          "https://mamyruly.github.io/qr1/"
-        );
+        if (window.opener) {
+        // Отправляем сообщение на первую страницу с информацией о сумме
+        window.opener.postMessage({ amount: amount }, 'https://mamyruly.github.io/qr1/');
+        
+        // Закрываем окно после отправки сообщения
+    } else {
+        alert('Оплата успешно произведена, но не удалось отправить данные на первую страницу.');
+    }
       }
     </script>
   </body>
