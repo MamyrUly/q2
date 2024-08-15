@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Оплата</title>
+  </head>
+  <body>
+    <p id="amount"></p>
+    <button onclick="makePay()">Оплатить</button>
+
+    <script>
+      // Функция для получения значения параметра из URL
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+
+      // Получаем сумму из URL и вставляем в <p>
+      const amount = getQueryParam("amount");
+      document.getElementById(
+        "amount"
+      ).textContent = `Сумма к оплате: ${amount} руб.`;
+
+      function makePay() {
+        document.getElementById("amount").textContent =
+          "оплата успешно выполнена";
+        window.opener.postMessage(
+          { amount: amount },
+          "https://mamyruly.github.io/qr1/"
+        );
+      }
+    </script>
+  </body>
+</html>
